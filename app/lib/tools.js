@@ -128,13 +128,6 @@ export const tools = {
     accept: "image/*",
     type: "image",
   },
-  // "svg-vectorizer": {
-  //   title: "SVG Vectorizer",
-  //   description: "Convert images to SVG format.",
-  //   uploadLabel: "Select images or drop them here",
-  //   accept: "image/*",
-  //   type: "image",
-  // },
   "favicon-generator": {
     title: "Favicon Generator",
     description: "Generate favicons for websites and apps.",
