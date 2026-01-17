@@ -289,7 +289,6 @@ export const CardiconMap = {
   "Watermark Adder": <Settings size={18} className="text-blue-600" />,
   "EXIF Metadata Remover": <Settings size={18} className="text-blue-600" />,
   "Image Blur / Pixelate": <Settings size={18} className="text-blue-600" />,
-  "SVG Vectorizer": <ImageIcon size={18} className="text-blue-600" />,
   "Favicon Generator": <ImageIcon size={18} className="text-blue-600" />,
 
   "PDF Compressor": <Zap size={18} className="text-red-600" />,
@@ -344,7 +343,6 @@ export const Cardsections = [
       { name: "Watermark Adder", slug: "watermark-adder", desc: "Add text or logo watermarks" },
       { name: "EXIF Metadata Remover", slug: "exif-metadata-remover", desc: "Remove hidden image data" },
       { name: "Image Blur / Pixelate", slug: "image-blur-pixelate", desc: "Blur or pixelate sensitive areas" },
-      { name: "SVG Vectorizer", slug: "svg-vectorizer", desc: "Convert images to SVG" },
       { name: "Favicon Generator", slug: "favicon-generator", desc: "Generate favicons for all devices" },
     ],
   },

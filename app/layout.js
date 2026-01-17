@@ -1,4 +1,6 @@
+"use client";
 import { Geist, Geist_Mono } from "next/font/google";
+import { SessionProvider } from "next-auth/react";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -11,10 +13,10 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-export const metadata = {
-  title: "SwiftTools",
-  description: "The all-in-one toolbox that fits your daily workflow.",
-};
+// export const metadata = {
+//   title: "SwiftTools",
+//   description: "The all-in-one toolbox that fits your daily workflow.",
+// };
 
 export default function RootLayout({ children }) {
   return (
@@ -22,7 +24,8 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+          <SessionProvider>  {children} </SessionProvider>
+      
       </body>
     </html>
   );
