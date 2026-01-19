@@ -308,24 +308,16 @@ export const CardiconMap = {
 /* ================= SECTIONS ================= */
 export const Cardsections = [
   {
-    title: "Image Format Converters",
+    title: "Image Tools",
     basePath: "images",
-    subtitle: "Convert between JPG, PNG, and WebP formats",
+    subtitle: "Convert, compress and edit images instantly",
     tools: [
-      { name: "JPG to PNG", slug: "jpg-to-png", desc: "Convert JPG images to PNG" },
+       { name: "JPG to PNG", slug: "jpg-to-png", desc: "Convert JPG images to PNG" },
       { name: "PNG to JPG", slug: "png-to-jpg", desc: "Convert PNG images to JPG" },
       { name: "JPG to WebP", slug: "jpg-to-webp", desc: "Convert JPG images to WebP" },
       { name: "WebP to JPG", slug: "webp-to-jpg", desc: "Convert WebP images to JPG" },
       { name: "PNG to WebP", slug: "png-to-webp", desc: "Convert PNG images to WebP" },
       { name: "WebP to PNG", slug: "webp-to-png", desc: "Convert WebP images to PNG" },
-    ],
-  },
-
-  {
-    title: "Image Tools",
-    basePath: "images",
-    subtitle: "Convert, compress and edit images instantly",
-    tools: [
       { name: "Image Compressor", slug: "image-compressor", desc: "Reduce image size without quality loss" },
       { name: "Image Resizer", slug: "image-resizer", desc: "Resize images without distortion" },
       { name: "Bulk Image Resizer", slug: "bulk-image-resizer", desc: "Resize multiple images at once" },
