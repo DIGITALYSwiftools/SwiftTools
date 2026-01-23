@@ -55,7 +55,7 @@ export default function LoginPage() {
       </div>
 
       {/* RIGHT PANEL */}
-      <div className="flex items-center justify-center px-6 bg-white">
+      <div className="flex items-center justify-center px-6 sm:bg-white bg-linear-to-r from-[#f8f7ff] via-[#fff7f7] to-[#fffdf5]">
         <div className="w-full max-w-sm">
 
           {/* Logo */}
