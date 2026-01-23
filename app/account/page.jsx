@@ -135,12 +135,13 @@ export default function AccountPage() {
           </a>
             
         </nav>
+        {sidebarOpen && 
         <button
               onClick={() => signOut({ callbackUrl: "/" })}
               className=" cursor-pointer text-sm bg-black text-white px-3 py-2 rounded-lg hover:text-gray-200 transition"
             >
               Logout
-            </button>
+            </button>}
       </aside>
 
       {/* Main Content */}
@@ -170,14 +171,14 @@ export default function AccountPage() {
           <h2 className="text-2xl sm:text-3xl font-semibold text-center text-gray-900 mb-2">
             Account Settings
           </h2>
-          <p className="text-sm text-center text-gray-500 mb-6">
+          <p className="text-xs text-center text-gray-500 mb-6">
             Manage your account & subscription
           </p>
 
           <div className=" gap-4 max-w-4xl mx-auto flex flex-col sm:flex-row sm:items-between  items-center  ">
 
             {/* Account Card */}
-            <div className="rounded-xl  sm:w-[50%] w-[70%] bg-white p-4 shadow-sm flex flex-col gap-2">
+            <div className="ml-17 rounded-xl  sm:w-[50%] w-[80%] bg-white p-4 shadow-sm flex flex-col gap-2">
               <div className="flex justify-between items-center">
                 <h3 className="font-medium text-gray-900">Name</h3>
                 <button
@@ -220,7 +221,7 @@ export default function AccountPage() {
             </div>
 
             {/* Subscription Card */}
-            <div className="rounded-xl  sm:w-[30%] w-[70%] bg-gray-100 p-4 shadow-sm flex flex-col gap-2">
+            <div className="ml-17 rounded-xl  sm:w-[30%] w-[80%] bg-gray-100 p-4 shadow-sm flex flex-col gap-2">
               <h3 className="font-medium text-gray-900">Subscription</h3>
               <p className="text-sm text-gray-600">Plan: Free</p>
               <p className="text-sm text-gray-600">

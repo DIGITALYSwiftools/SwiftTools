@@ -40,72 +40,73 @@ export default function Dashboard() {
     <main className="min-h-screen flex bg-linear-to-r from-[#f8f7ff] via-[#fffbfb] to-[#fffdf5]">
 
       {/* Sidebar — SAME AS ACCOUNT */}
-      <aside
-        className={`fixed top-0 left-0 h-full bg-white/50 backdrop-blur-md shadow-lg p-4 transition-all duration-300 z-30
-          ${sidebarOpen ? "w-64" : "w-16"} flex flex-col`}
-      >
-        <div className="flex items-center justify-between mb-6 mt-16">
-          <button
-            className="p-1 rounded hover:bg-gray-100"
-            onClick={() => setSidebarOpen(!sidebarOpen)}
-          >
-            <ArrowRight
-              className={`w-4 h-4 transform transition-transform duration-300 ${
-                sidebarOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-        </div>
+     <aside
+  className={`fixed top-0 left-0 h-full bg-white/80 backdrop-blur-md shadow-lg p-3 transition-all duration-300 z-30
+    ${sidebarOpen ? "w-56" : "w-14"} flex flex-col`}
+>
+  <div className="flex items-center justify-between mb-4 mt-16">
+    <button
+      className="p-1 rounded hover:bg-gray-100"
+      onClick={() => setSidebarOpen(!sidebarOpen)}
+    >
+      <ArrowRight
+        className={`w-3.5 h-3.5 transform transition-transform duration-300 ${
+          sidebarOpen ? "rotate-180" : ""
+        }`}
+      />
+    </button>
+  </div>
 
-        <nav className="flex-1 space-y-2">
-          <Link
-            href="/"
-            className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100"
-          >
-            <Home className="w-5 h-5" />
-            {sidebarOpen && <span>Home</span>}
-          </Link>
+  <nav className="flex-1 space-y-3 mt-15">
+    <Link
+      href="/"
+      className="cursor-pointer flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-gray-100 text-sm"
+    >
+      <Home className="w-4 h-4" />
+      {sidebarOpen && <span className="text-sm">Home</span>}
+    </Link>
 
-          <Link
-            href="/account"
-            className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100"
-          >
-            <User className="w-5 h-5" />
-            {sidebarOpen && <span>Account</span>}
-          </Link>
+    <Link
+      href="/account"
+      className="cursor-pointer flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-gray-100 text-sm"
+    >
+      <User className="w-4 h-4" />
+      {sidebarOpen && <span className="text-sm">Account</span>}
+    </Link>
 
-          <Link
-            href="/tools"
-            className= "cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100"
-          >
-            <Cpu className="w-5 h-5" />
-            {sidebarOpen && <span>Tools</span>}
-          </Link>
+    <Link
+      href="/tools"
+      className="cursor-pointer flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-gray-100 text-sm"
+    >
+      <Cpu className="w-4 h-4" />
+      {sidebarOpen && <span className="text-sm">Tools</span>}
+    </Link>
 
-          <a
-            href="/api"
-            className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100"
-          >
-            <Pen className="w-5 h-5" />
-            {sidebarOpen && <span>API</span>}
-          </a>
+    <a
+      href="/api"
+      className="cursor-pointer flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-gray-100 text-sm"
+    >
+      <Pen className="w-4 h-4" />
+      {sidebarOpen && <span className="text-sm">API</span>}
+    </a>
 
-          <a
-            href="/docs"
-            className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100"
-          >
-            <FileText className="w-5 h-5" />
-            {sidebarOpen && <span>Docs</span>}
-          </a>
-        </nav>
+    <a
+      href="/docs"
+      className="cursor-pointer flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-gray-100 text-sm"
+    >
+      <FileText className="w-4 h-4" />
+      {sidebarOpen && <span className="text-sm">Docs</span>}
+    </a>
+  </nav>
+{sidebarOpen && 
+  <button
+    onClick={() => signOut({ callbackUrl: "/" })}
+    className="cursor-pointer text-xs bg-black text-white px-2 py-1.5 rounded-md hover:text-gray-200 transition"
+  >
+    Logout
+  </button>}
+</aside>
 
-        <button
-          onClick={() => signOut({ callbackUrl: "/" })}
-          className="cursor-pointer text-sm bg-black text-white px-3 py-2 rounded-lg hover:text-gray-200 transition"
-        >
-          Logout
-        </button>
-      </aside>
 
       {/* Main Content — SAME MARGIN LOGIC */}
       <div
@@ -131,7 +132,7 @@ export default function Dashboard() {
 
         {/* Content */}
         <section className="mt-20 px-4 py-6 mb-14">
-          <h2 className="text-2xl sm:text-3xl font-semibold text-center sm:text-left  text-gray-900 mb-2">
+          <h2 className="text-xl sm:text-3xl font-semibold text-center sm:text-left  text-gray-900 mb-2">
             Welcome, {session.user?.name || "User"} 👋
           </h2>
           <p className="text-sm text-gray-500 mb-6 text-center sm:text-left">
@@ -141,7 +142,7 @@ export default function Dashboard() {
           {/* Cards */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
 
-            <div className=" ml-15 sm:ml-2 rounded-xl bg-white p-4 shadow-sm sm:w-[80%] w-[70%] flex flex-col ">
+            <div className=" ml-17 sm:ml-2 rounded-xl bg-white p-4 shadow-sm sm:w-[80%] w-[77%] flex flex-col ">
               <h3 className="font-medium text-gray-900">Account</h3>
               <p className="text-xs text-gray-500 mt-1">
                 Name: {session.user?.name}
@@ -151,7 +152,7 @@ export default function Dashboard() {
               </p>
             </div>
 
-            <div className=" ml-15 sm:ml-2 rounded-xl bg-gray-100 p-4 shadow-sm flex flex-col sm:w-[80%] w-[70%] justify-between">
+            <div className=" ml-17 sm:ml-2 rounded-xl bg-gray-100 p-4 shadow-sm flex flex-col sm:w-[80%] w-[77%] justify-between">
               <h3 className="font-medium text-gray-900">Subscription</h3>
               <p className="text-sm text-gray-600">Plan: Free</p>
               <p className="text-sm text-gray-600">
@@ -174,7 +175,7 @@ export default function Dashboard() {
               <Link
                 key={tool.slug}
                 href={`/images/${tool.slug}`}
-                className="group sm:w-[90%] w-[80%] rounded-xl bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
+                className="group sm:w-[90%] w-[95%] rounded-xl bg-white p-4 shadow-sm transition-all hover:-translate-y-1 hover:shadow-lg"
               >
                 <div className="flex items-center gap-2 mb-2">
                   {iconMap[tool.name] ?? "⚙️"}
@@ -186,7 +187,9 @@ export default function Dashboard() {
           </div>
         </section>
 
-        <Footer />
+       <div className="ml-10">
+         <Footer />
+       </div>
       </div>
     </main>
   );
