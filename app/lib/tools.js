@@ -1,3 +1,4 @@
+
 import {
   ArrowRight,
   ImageIcon,
@@ -14,53 +15,9 @@ import {
 
 /* ========= IMAGE CONVERTERS ========= */
 export const tools = {
-  "jpg-to-png": {
-    title: "JPG to PNG",
-    description: "Convert JPG images to PNG format.",
-    uploadLabel: "Select JPG images or drop them here",
-    accept: ".jpg,.jpeg",
-    type: "image",
-  },
-  "png-to-jpg": {
-    title: "PNG to JPG",
-    description: "Convert PNG images to JPG format.",
-    uploadLabel: "Select PNG images or drop them here",
-    accept: ".png",
-    type: "image",
-  },
-  "jpg-to-webp": {
-    title: "JPG to WebP",
-    description: "Convert JPG images to WebP format.",
-    uploadLabel: "Select JPG images or drop them here",
-    accept: ".jpg,.jpeg",
-    type: "image",
-  },
-  "webp-to-jpg": {
-    title: "WebP to JPG",
-    description: "Convert WebP images to JPG format.",
-    uploadLabel: "Select WebP images or drop them here",
-    accept: ".webp",
-    type: "image",
-  },
-  "png-to-webp": {
-    title: "PNG to WebP",
-    description: "Convert PNG images to WebP format.",
-    uploadLabel: "Select PNG images or drop them here",
-    accept: ".png",
-    type: "image",
-  },
-  "webp-to-png": {
-    title: "WebP to PNG",
-    description: "Convert WebP images to PNG format.",
-    uploadLabel: "Select WebP images or drop them here",
-    accept: ".webp",
-    type: "image",
-  },
-
-  /* ========= IMAGE TOOLS ========= */
   "image-converter": {
     title: "Image Converter",
-    description: "Convert images between PNG, JPG, WebP, and AVIF formats.",
+    description: "Convert images between JPG, PNG, and WebP formats.",
     uploadLabel: "Select images or drop them here",
     accept: "image/*",
     type: "image",
@@ -266,13 +223,8 @@ export const devTools = {
   },
 }
 export const CardiconMap = {
-  "JPG to PNG": <ImageIcon size={18} className="text-blue-600" />,
-  "PNG to JPG": <ImageIcon size={18} className="text-blue-600" />,
-  "JPG to WebP": <ImageIcon size={18} className="text-blue-600" />,
-  "WebP to JPG": <ImageIcon size={18} className="text-blue-600" />,
-  "PNG to WebP": <ImageIcon size={18} className="text-blue-600" />,
-  "WebP to PNG": <ImageIcon size={18} className="text-blue-600" />,
-
+ 
+  "Image Converter": <ImageIcon size={18} className="text-blue-600" />,
   "Image Compressor": <Zap size={18} className="text-blue-600" />,
   "Image Resizer": <Crop size={18} className="text-blue-600" />,
   "Bulk Image Resizer": <Crop size={18} className="text-blue-600" />,
@@ -312,12 +264,7 @@ export const Cardsections = [
     basePath: "images",
     subtitle: "Convert, compress and edit images instantly",
     tools: [
-       { name: "JPG to PNG", slug: "jpg-to-png", desc: "Convert JPG images to PNG" },
-      { name: "PNG to JPG", slug: "png-to-jpg", desc: "Convert PNG images to JPG" },
-      { name: "JPG to WebP", slug: "jpg-to-webp", desc: "Convert JPG images to WebP" },
-      { name: "WebP to JPG", slug: "webp-to-jpg", desc: "Convert WebP images to JPG" },
-      { name: "PNG to WebP", slug: "png-to-webp", desc: "Convert PNG images to WebP" },
-      { name: "WebP to PNG", slug: "webp-to-png", desc: "Convert WebP images to PNG" },
+      { name: "Image Converter", slug: "image-converter", desc: "Convert images to different formats" },
       { name: "Image Compressor", slug: "image-compressor", desc: "Reduce image size without quality loss" },
       { name: "Image Resizer", slug: "image-resizer", desc: "Resize images without distortion" },
       { name: "Bulk Image Resizer", slug: "bulk-image-resizer", desc: "Resize multiple images at once" },

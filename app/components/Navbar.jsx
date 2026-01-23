@@ -4,6 +4,7 @@ import { useRouter } from "next/navigation";
 import { useSession, signOut } from "next-auth/react";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import Link from "next/link";
 
 export default function Navbar() {
   const router = useRouter();
@@ -12,11 +13,14 @@ export default function Navbar() {
 
   const toggleMenu = () => setIsOpen(!isOpen);
 
+  // Get user's initial
+  const userInitial = session?.user?.name?.charAt(0).toUpperCase();
+
   return (
     <header className="absolute top-3 left-0 right-0 z-50">
       <div className="mx-auto max-w-7xl px-4 sm:px-6">
         <div className="flex items-center justify-between h-16 rounded-full bg-white/80 backdrop-blur-md shadow-lg px-4">
-          
+
           {/* Logo */}
           <div className="flex items-center gap-2 cursor-pointer" onClick={() => router.push('/')}>
             <Image src="/logo.png" alt="Logo" width={120} height={120} />
@@ -24,28 +28,31 @@ export default function Navbar() {
 
           {/* Desktop Nav Links */}
           <nav className="hidden md:flex items-center gap-6 text-sm text-gray-700">
-            <a className="hover:text-black transition" href="#">Tools</a>
-            <a className="hover:text-black transition" href="#">Use cases</a>
-            <a className="hover:text-black transition" href="#">Pricing</a>
-            <a className="hover:text-black transition" href="#">API</a>
-            <a className="hover:text-black transition" href="#">Docs</a>
+            <Link href={"/tools"} onClick={() => setIsOpen(false)} className="hover:text-black transition">Tools</Link>
+            <Link className="hover:text-black transition" href="usecase">Use cases</Link>
+            <Link className="hover:text-black transition" href="pricing">Pricing</Link>
+            <Link className="hover:text-black transition" href="api">API</Link>
+            <Link className="hover:text-black transition" href="docs">Docs</Link>
           </nav>
 
           {/* Desktop Actions */}
           <div className="hidden md:flex items-center gap-4">
-            {!session?.user && (
-              <button onClick={() => router.push('/login')} className="text-sm text-gray-700 hover:text-black transition">
-                Log in
-              </button>
-            )}
             {!session?.user ? (
-              <button onClick={() => router.push('/signup')} className="rounded-full bg-black px-5 py-2 text-sm text-white hover:bg-gray-900 transition">
-                Register
-              </button>
+              <>
+                <button onClick={() => router.push('/login')} className="text-sm text-gray-700 hover:text-black transition">Log in</button>
+                <button onClick={() => router.push('/signup')} className="rounded-full bg-black px-5 py-2 text-sm text-white hover:bg-gray-900 transition">Register</button>
+              </>
             ) : (
-              <button onClick={() => signOut({ callbackUrl: "/" })} className="rounded-full bg-black px-5 py-2 text-sm text-white hover:bg-gray-900 transition">
-                Logout
-              </button>
+              <div className="flex items-center gap-3">
+                {/* Logout (text only) */}
+                <button onClick={() => signOut({ callbackUrl: "/" })} className="text-sm text-gray-700 hover:text-black transition">
+                  Logout
+                </button>
+                {/* User Avatar */}
+                <Link href="/dashboard" className="w-9 h-9 rounded-full bg-black text-white flex items-center justify-center text-sm font-semibold uppercase">
+                  {userInitial}
+                </Link>
+              </div>
             )}
           </div>
 
@@ -60,12 +67,8 @@ export default function Navbar() {
 
       {/* Mobile Sidebar */}
       <div className={`fixed top-0 left-0 w-full h-full z-40 transition-opacity duration-300 ${isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'}`}>
-        
         {/* Overlay */}
-        <div 
-          className="absolute inset-0 bg-black/50" 
-          onClick={toggleMenu}
-        />
+        <div className="absolute inset-0 bg-black/50" onClick={toggleMenu} />
 
         {/* Sidebar */}
         <div className={`fixed top-0 left-0 h-full w-64 bg-white shadow-xl p-6 transition-transform duration-300 ${isOpen ? 'translate-x-0' : '-translate-x-full'}`}>
@@ -76,33 +79,30 @@ export default function Navbar() {
               <X size={28} />
             </button>
           </div>
+             {/* Actions */}
+          <div className="mt-10 mb-10 flex flex-col gap-4">
+            {!session?.user ? (
+              <>
+                <button onClick={() => { router.push('/login'); setIsOpen(false); }} className="text-gray-700 hover:text-black text-lg transition">Log in</button>
+                <button onClick={() => { router.push('/signup'); setIsOpen(false); }} className="rounded-full bg-black px-6 py-3 text-lg text-white hover:bg-gray-900 transition">Register</button>
+              </>
+            ) : (
+                <div className="w-12 h-12 rounded-full bg-black text-white flex items-center justify-center text-lg font-semibold uppercase">
+                  {userInitial}
+                </div> 
+            )}
+          </div>
 
           {/* Links */}
           <nav className="flex flex-col gap-6 text-gray-800 text-lg">
-            <a onClick={() => setIsOpen(false)} href="#" className="hover:text-black transition">Tools</a>
-            <a onClick={() => setIsOpen(false)} href="#" className="hover:text-black transition">Use cases</a>
-            <a onClick={() => setIsOpen(false)} href="#" className="hover:text-black transition">Pricing</a>
-            <a onClick={() => setIsOpen(false)} href="#" className="hover:text-black transition">API</a>
-            <a onClick={() => setIsOpen(false)} href="#" className="hover:text-black transition">Docs</a>
+            <Link href={"/tools"} onClick={() => setIsOpen(false)} className="hover:text-black transition">Tools</Link>
+            <Link onClick={() => setIsOpen(false)} href="usecase" className="hover:text-black transition">Use cases</Link>
+            <Link onClick={() => setIsOpen(false)} href="pricing" className="hover:text-black transition">Pricing</Link>
+            <Link onClick={() => setIsOpen(false)} href="api" className="hover:text-black transition">API</Link>
+            <Link onClick={() => setIsOpen(false)} href="docs" className="hover:text-black transition">Docs</Link>
           </nav>
 
-          {/* Actions */}
-          <div className="mt-10 flex flex-col gap-4">
-            {!session?.user && (
-              <button onClick={() => { router.push('/login'); setIsOpen(false); }} className="text-gray-700 hover:text-black text-lg transition">
-                Log in
-              </button>
-            )}
-            {!session?.user ? (
-              <button onClick={() => { router.push('/signup'); setIsOpen(false); }} className="rounded-full bg-black px-6 py-3 text-lg text-white hover:bg-gray-900 transition">
-                Register
-              </button>
-            ) : (
-              <button onClick={() => { signOut({ callbackUrl: "/" }); setIsOpen(false); }} className="rounded-full bg-black px-6 py-3 text-lg text-white hover:bg-gray-900 transition">
-                Logout
-              </button>
-            )}
-          </div>
+       
         </div>
       </div>
     </header>

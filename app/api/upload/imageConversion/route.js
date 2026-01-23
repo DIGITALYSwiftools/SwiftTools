@@ -15,6 +15,9 @@ export async function POST(request) {
     const formData = await request.formData();
 
     const conversionType = formData.get("conversionType");
+    console.log('====================================');
+    console.log(conversionType);
+    console.log('====================================');
     const file = formData.get("file");
 
     if (!file) {
