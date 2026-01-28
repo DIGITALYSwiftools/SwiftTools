@@ -488,7 +488,8 @@ export async function POST(request) {
 
     // Title
     ctx.fillStyle = '#2c3e50';
-    ctx.font = 'bold 22px "Segoe UI", Arial, sans-serif';
+    // Use system fonts that work on Vercel/Linux
+    ctx.font = 'bold 22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Color Palette Analysis', totalWidth / 2, currentY);
     currentY += 40;
@@ -496,7 +497,7 @@ export async function POST(request) {
     // Main Palette Section
     const mainPaletteX = (totalWidth - mainPaletteWidth) / 2;
     
-    ctx.font = 'bold 16px "Segoe UI", Arial, sans-serif';
+    ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
     ctx.fillStyle = '#34495e';
     ctx.textAlign = 'center';
     ctx.fillText('Dominant Colors', totalWidth / 2, currentY);
@@ -535,15 +536,15 @@ export async function POST(request) {
       const infoY = currentY + blockSize + 5;
       ctx.fillRect(x - 2, infoY - 5, blockSize + 4, 40);
       
-      // Text
+      // Text - using system fonts
       ctx.fillStyle = textColor;
-      ctx.font = 'bold 12px "Segoe UI", Arial, sans-serif';
+      ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
       ctx.fillText(hex, x + blockSize / 2, infoY);
       
-      ctx.font = '11px "Segoe UI", Arial, sans-serif';
+      ctx.font = '11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
       ctx.fillText(name, x + blockSize / 2, infoY + 15);
       
-      ctx.font = '9px "Segoe UI", Arial, sans-serif';
+      ctx.font = '9px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
       ctx.fillText(`L:${hsl.l}%`, x + blockSize / 2, infoY + 28);
     });
 
@@ -552,7 +553,7 @@ export async function POST(request) {
 
     // Tone Analysis Section
     ctx.fillStyle = '#34495e';
-    ctx.font = 'bold 16px "Segoe UI", Arial, sans-serif';
+    ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Image Tone Analysis', totalWidth / 2, currentY);
     currentY += 25;
@@ -582,12 +583,12 @@ export async function POST(request) {
       
       // Tone label
       ctx.fillStyle = '#2c3e50';
-      ctx.font = 'bold 11px "Segoe UI", Arial, sans-serif';
+      ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
       ctx.textAlign = 'center';
       ctx.fillText(tone.label, x + toneBlockWidth / 2, toneY + toneBlockHeight + 15);
       
       // Percentage
-      ctx.font = '10px "Segoe UI", Arial, sans-serif';
+      ctx.font = '10px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
       ctx.fillText(`${color.percentage.toFixed(1)}% of image`, x + toneBlockWidth / 2, toneY + toneBlockHeight + 28);
       
       // Suggested uses (with proper line spacing)
@@ -597,7 +598,7 @@ export async function POST(request) {
         light: ['Background', 'Highlight', 'Spacing']
       };
       
-      ctx.font = '9px "Segoe UI", Arial, sans-serif';
+      ctx.font = '9px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
       ctx.fillStyle = '#7f8c8d';
       suggestions[tone.key].forEach((suggestion, idx) => {
         ctx.fillText(suggestion, x + toneBlockWidth / 2, toneY + toneBlockHeight + 42 + (idx * 11));
@@ -609,7 +610,7 @@ export async function POST(request) {
 
     // Color Category Suggestions Section
     ctx.fillStyle = '#34495e';
-    ctx.font = 'bold 16px "Segoe UI", Arial, sans-serif';
+    ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Suggested Color Categories', totalWidth / 2, currentY);
     currentY += 25;
@@ -655,13 +656,13 @@ export async function POST(request) {
       
       // Category label
       ctx.fillStyle = '#2c3e50';
-      ctx.font = 'bold 12px "Segoe UI", Arial, sans-serif';
+      ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
       ctx.textAlign = 'left';
       ctx.fillText(category.label, catX, catY);
       
       // Category description
       ctx.fillStyle = '#7f8c8d';
-      ctx.font = 'italic 9px "Segoe UI", Arial, sans-serif';
+      ctx.font = 'italic 9px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
       ctx.fillText(category.description, catX, catY + 14);
       
       // Category color blocks
@@ -680,7 +681,7 @@ export async function POST(request) {
           const hex = rgbToHex(color.r, color.g, color.b);
           const brightness = (color.r + color.g + color.b) / 3;
           ctx.fillStyle = brightness > 128 ? '#000' : '#fff';
-          ctx.font = '8px "Segoe UI", Arial, sans-serif';
+          ctx.font = '8px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
           ctx.textAlign = 'center';
           ctx.fillText(hex.substring(0, 4) + '...', 
                       x + categoryBlockSize / 2, 
@@ -692,11 +693,11 @@ export async function POST(request) {
       const usageStartY = colorsStartY + categoryBlockSize + 10;
       ctx.textAlign = 'left';
       ctx.fillStyle = '#2c3e50';
-      ctx.font = 'bold 9px "Segoe UI", Arial, sans-serif';
+      ctx.font = 'bold 9px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
       ctx.fillText('Best for:', catX, usageStartY);
       
       ctx.fillStyle = '#7f8c8d';
-      ctx.font = '9px "Segoe UI", Arial, sans-serif';
+      ctx.font = '9px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
       category.usage.forEach((use, idx) => {
         ctx.fillText(`• ${use}`, catX, usageStartY + 12 + (idx * 11));
       });
@@ -706,7 +707,7 @@ export async function POST(request) {
 
     // Footer
     ctx.fillStyle = '#95a5a6';
-    ctx.font = '10px "Segoe UI", Arial, sans-serif';
+    ctx.font = '10px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
     ctx.textAlign = 'center';
     ctx.fillText('Generated with advanced color analysis • Based on image tone distribution', 
                  totalWidth / 2, 

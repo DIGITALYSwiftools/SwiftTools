@@ -195,10 +195,10 @@ export default function DesignToolPage({ params }) {
         <div className="rounded-xl p-4 shadow-sm bg-white space-y-4">
 
           {/* Upload Section */}
-          <label className="flex flex-col items-center gap-2 cursor-pointer rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-5 text-center hover:bg-gray-100 transition-colors">
+          <label className="flex flex-col items-center gap-2 cursor-pointer rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 p-2 text-center hover:bg-gray-100 transition-colors">
             {!preview ? (
               <>
-                <div className="w-20 h-20 md:w-30 md:h-30 flex items-center justify-center  rounded-full">
+                <div className="w-20 h-20  flex items-center justify-center  rounded-full">
                   <img src="/cloud-logo.png"/>
                 </div>
                 <span className="font-semibold text-base">
@@ -217,7 +217,7 @@ export default function DesignToolPage({ params }) {
                   <img
                     src={preview}
                     alt="Preview"
-                    className="w-full h-40 object-contain rounded-lg"
+                    className="w-full h-20 object-contain rounded-lg"
                   />
                   <div className="absolute inset-0 bg-black/10 rounded-lg" />
                 </div>
