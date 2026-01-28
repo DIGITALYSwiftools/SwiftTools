@@ -436,282 +436,64 @@ export async function POST(request) {
     const imageBuffer = Buffer.from(arrayBuffer);
     const img = await loadImage(imageBuffer);
 
-    const { colors, toneAnalysis, categories } = getDominantColorsWithTones(img, Math.min(Math.max(colorCount, 3), 12));
+    const { colors } = getDominantColorsWithTones(img, Math.min(Math.max(colorCount, 3), 12));
 
-    // Calculate dynamic dimensions based on content
-    const blockSize = 100;
-    const spacing = 8;
-    const textHeight = 45;
+    // Create a simple visual palette with minimal text
+    const blockSize = 150;
+    const spacing = 20;
+    const padding = 40;
     
-    // Main palette section
-    const mainPaletteWidth = colors.length * (blockSize + spacing) - spacing;
-    const mainPaletteHeight = blockSize + textHeight + 30;
+    const cols = Math.min(colors.length, 4);
+    const rows = Math.ceil(colors.length / cols);
     
-    // Tone analysis section
-    const toneBlockWidth = 90;
-    const toneBlockHeight = 40;
-    const toneSpacing = 15;
-    const toneLabelsWidth = 3 * toneBlockWidth + 2 * toneSpacing;
-    const toneAnalysisHeight = 140;
-    
-    // Category suggestions section
-    const categoryBlockSize = 30;
-    const categorySpacing = 10;
-    const categoryRowHeight = 80;
-    
-    // Calculate total dimensions
-    const sectionPadding = 30;
-    const sectionSpacing = 25;
-    
-    const totalWidth = Math.max(mainPaletteWidth, toneLabelsWidth) + (sectionPadding * 2);
-    const totalHeight = 
-      sectionPadding + // Top padding
-      mainPaletteHeight + 
-      sectionSpacing +
-      toneAnalysisHeight +
-      sectionSpacing +
-      categoryRowHeight +
-      sectionPadding + 30; // Bottom padding + footer space
+    const totalWidth = cols * blockSize + (cols - 1) * spacing + padding * 2;
+    const totalHeight = rows * blockSize + (rows - 1) * spacing + padding * 2 + 50;
     
     const canvas = createCanvas(totalWidth, totalHeight);
     const ctx = canvas.getContext("2d");
 
     // Background
-    const bgGradient = ctx.createLinearGradient(0, 0, totalWidth, totalHeight);
-    bgGradient.addColorStop(0, '#ffffff');
-    bgGradient.addColorStop(0.5, '#f8f9fa');
-    bgGradient.addColorStop(1, '#e9ecef');
-    ctx.fillStyle = bgGradient;
+    ctx.fillStyle = '#f8f9fa';
     ctx.fillRect(0, 0, totalWidth, totalHeight);
 
-    let currentY = sectionPadding;
-
-    // Title
+    // Title (use default sans-serif)
     ctx.fillStyle = '#2c3e50';
-    // Use system fonts that work on Vercel/Linux
-    ctx.font = 'bold 22px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
+    ctx.font = 'bold 24px sans-serif';
     ctx.textAlign = 'center';
-    ctx.fillText('Color Palette Analysis', totalWidth / 2, currentY);
-    currentY += 40;
+    ctx.fillText('Color Palette', totalWidth / 2, padding);
 
-    // Main Palette Section
-    const mainPaletteX = (totalWidth - mainPaletteWidth) / 2;
-    
-    ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-    ctx.fillStyle = '#34495e';
-    ctx.textAlign = 'center';
-    ctx.fillText('Dominant Colors', totalWidth / 2, currentY);
-    currentY += 25;
-
+    // Draw color blocks
     colors.forEach((color, i) => {
-      const x = mainPaletteX + i * (blockSize + spacing);
+      const row = Math.floor(i / cols);
+      const col = i % cols;
+      const x = padding + col * (blockSize + spacing);
+      const y = padding + 50 + row * (blockSize + spacing);
       const { r, g, b } = color;
       
       // Color block with shadow
-      ctx.shadowColor = 'rgba(0, 0, 0, 0.15)';
-      ctx.shadowBlur = 8;
-      ctx.shadowOffsetY = 3;
+      ctx.shadowColor = 'rgba(0, 0, 0, 0.2)';
+      ctx.shadowBlur = 10;
+      ctx.shadowOffsetY = 5;
       
       ctx.fillStyle = `rgb(${r}, ${g}, ${b})`;
-      ctx.fillRect(x, currentY, blockSize, blockSize);
+      ctx.fillRect(x, y, blockSize, blockSize);
       
       ctx.shadowColor = 'transparent';
       
-      // Block border
-      ctx.strokeStyle = '#333';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(x, currentY, blockSize, blockSize);
-      
-      // Color info
-      const hex = rgbToHex(r, g, b);
-      const name = getColorName(r, g, b);
-      const hsl = rgbToHsl(r, g, b);
-      
-      const brightness = (r * 299 + g * 587 + b * 114) / 1000;
-      const textColor = brightness > 150 ? '#000000' : '#FFFFFF';
-      const bgAlpha = brightness > 150 ? 'rgba(255,255,255,0.9)' : 'rgba(0,0,0,0.85)';
-      
-      // Info background
-      ctx.fillStyle = bgAlpha;
-      const infoY = currentY + blockSize + 5;
-      ctx.fillRect(x - 2, infoY - 5, blockSize + 4, 40);
-      
-      // Text - using system fonts
-      ctx.fillStyle = textColor;
-      ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-      ctx.fillText(hex, x + blockSize / 2, infoY);
-      
-      ctx.font = '11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-      ctx.fillText(name, x + blockSize / 2, infoY + 15);
-      
-      ctx.font = '9px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-      ctx.fillText(`L:${hsl.l}%`, x + blockSize / 2, infoY + 28);
-    });
-
-    currentY += blockSize + textHeight + 15;
-    currentY += sectionSpacing;
-
-    // Tone Analysis Section
-    ctx.fillStyle = '#34495e';
-    ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Image Tone Analysis', totalWidth / 2, currentY);
-    currentY += 25;
-    
-    const toneSectionX = (totalWidth - toneLabelsWidth) / 2;
-    
-    // Draw tone categories
-    const toneCategories = [
-      { label: 'Dark Tones', color: toneAnalysis.dark, key: 'dark' },
-      { label: 'Medium Tones', color: toneAnalysis.medium, key: 'medium' },
-      { label: 'Light Tones', color: toneAnalysis.light, key: 'light' }
-    ];
-    
-    toneCategories.forEach((tone, i) => {
-      const x = toneSectionX + i * (toneBlockWidth + toneSpacing);
-      const color = tone.color;
-      const toneY = currentY;
-      
-      // Tone color block
-      ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
-      ctx.fillRect(x, toneY, toneBlockWidth, toneBlockHeight);
-      
       // Border
       ctx.strokeStyle = '#333';
-      ctx.lineWidth = 1;
-      ctx.strokeRect(x, toneY, toneBlockWidth, toneBlockHeight);
+      ctx.lineWidth = 2;
+      ctx.strokeRect(x, y, blockSize, blockSize);
       
-      // Tone label
-      ctx.fillStyle = '#2c3e50';
-      ctx.font = 'bold 11px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
+      // HEX code in center
+      const hex = rgbToHex(r, g, b);
+      const brightness = (r + g + b) / 3;
+      ctx.fillStyle = brightness > 128 ? '#000' : '#fff';
+      ctx.font = 'bold 20px sans-serif';
       ctx.textAlign = 'center';
-      ctx.fillText(tone.label, x + toneBlockWidth / 2, toneY + toneBlockHeight + 15);
-      
-      // Percentage
-      ctx.font = '10px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-      ctx.fillText(`${color.percentage.toFixed(1)}% of image`, x + toneBlockWidth / 2, toneY + toneBlockHeight + 28);
-      
-      // Suggested uses (with proper line spacing)
-      const suggestions = {
-        dark: ['Background', 'Text', 'Borders'],
-        medium: ['Secondary', 'Buttons', 'Cards'],
-        light: ['Background', 'Highlight', 'Spacing']
-      };
-      
-      ctx.font = '9px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-      ctx.fillStyle = '#7f8c8d';
-      suggestions[tone.key].forEach((suggestion, idx) => {
-        ctx.fillText(suggestion, x + toneBlockWidth / 2, toneY + toneBlockHeight + 42 + (idx * 11));
-      });
+      ctx.textBaseline = 'middle';
+      ctx.fillText(hex, x + blockSize / 2, y + blockSize / 2);
     });
-
-    currentY += toneBlockHeight + 80; // Enough space for text below blocks
-    currentY += sectionSpacing;
-
-    // Color Category Suggestions Section
-    ctx.fillStyle = '#34495e';
-    ctx.font = 'bold 16px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Suggested Color Categories', totalWidth / 2, currentY);
-    currentY += 25;
-    
-    // Create vertical layout for categories instead of horizontal
-    const categoryLabels = [
-      { 
-        label: 'Vibrant Accents', 
-        colors: categories.vibrant, 
-        usage: ['Primary CTAs', 'Highlights', 'Icons'],
-        description: 'High saturation colors for attention'
-      },
-      { 
-        label: 'Dark Elements', 
-        colors: categories.dark, 
-        usage: ['Text', 'Headers', 'Footers'],
-        description: 'Contrast and readability'
-      },
-      { 
-        label: 'Medium Elements', 
-        colors: categories.medium, 
-        usage: ['Cards', 'Forms', 'Secondary'],
-        description: 'Balanced mid-tones'
-      },
-      { 
-        label: 'Light Elements', 
-        colors: categories.light, 
-        usage: ['Backgrounds', 'Spacing', 'Borders'],
-        description: 'Light backgrounds and spacing'
-      }
-    ];
-    
-    // Layout categories in a 2x2 grid
-    const categoryWidth = totalWidth / 2 - 40;
-    const categoryHeight = 80;
-    
-    categoryLabels.forEach((category, catIdx) => {
-      const row = Math.floor(catIdx / 2);
-      const col = catIdx % 2;
-      
-      const catX = 30 + col * (categoryWidth + 20);
-      const catY = currentY + row * (categoryHeight + 15);
-      
-      // Category label
-      ctx.fillStyle = '#2c3e50';
-      ctx.font = 'bold 12px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-      ctx.textAlign = 'left';
-      ctx.fillText(category.label, catX, catY);
-      
-      // Category description
-      ctx.fillStyle = '#7f8c8d';
-      ctx.font = 'italic 9px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-      ctx.fillText(category.description, catX, catY + 14);
-      
-      // Category color blocks
-      const colorsStartY = catY + 25;
-      category.colors.forEach((color, idx) => {
-        if (color) {
-          const x = catX + idx * (categoryBlockSize + 8);
-          ctx.fillStyle = `rgb(${color.r}, ${color.g}, ${color.b})`;
-          ctx.fillRect(x, colorsStartY, categoryBlockSize, categoryBlockSize);
-          
-          ctx.strokeStyle = '#333';
-          ctx.lineWidth = 0.5;
-          ctx.strokeRect(x, colorsStartY, categoryBlockSize, categoryBlockSize);
-          
-          // Hex code on block
-          const hex = rgbToHex(color.r, color.g, color.b);
-          const brightness = (color.r + color.g + color.b) / 3;
-          ctx.fillStyle = brightness > 128 ? '#000' : '#fff';
-          ctx.font = '8px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-          ctx.textAlign = 'center';
-          ctx.fillText(hex.substring(0, 4) + '...', 
-                      x + categoryBlockSize / 2, 
-                      colorsStartY + categoryBlockSize / 2);
-        }
-      });
-      
-      // Usage suggestions
-      const usageStartY = colorsStartY + categoryBlockSize + 10;
-      ctx.textAlign = 'left';
-      ctx.fillStyle = '#2c3e50';
-      ctx.font = 'bold 9px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-      ctx.fillText('Best for:', catX, usageStartY);
-      
-      ctx.fillStyle = '#7f8c8d';
-      ctx.font = '9px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-      category.usage.forEach((use, idx) => {
-        ctx.fillText(`• ${use}`, catX, usageStartY + 12 + (idx * 11));
-      });
-    });
-
-    currentY += (Math.ceil(categoryLabels.length / 2) * (categoryHeight + 15)) + 10;
-
-    // Footer
-    ctx.fillStyle = '#95a5a6';
-    ctx.font = '10px -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Ubuntu, "Helvetica Neue", Arial, sans-serif';
-    ctx.textAlign = 'center';
-    ctx.fillText('Generated with advanced color analysis • Based on image tone distribution', 
-                 totalWidth / 2, 
-                 currentY + 15);
 
     const buffer = canvas.toBuffer("image/jpeg", { 
       quality: 0.95,
@@ -719,7 +501,7 @@ export async function POST(request) {
     });
     
     const originalName = file.name.replace(/\.[^/.]+$/, "");
-    const filename = `${originalName}_palette_analysis.jpg`;
+    const filename = `${originalName}_palette.jpg`;
 
     return new NextResponse(buffer, {
       headers: {
@@ -742,20 +524,18 @@ export async function POST(request) {
 
 export async function GET() {
   return NextResponse.json({
-    name: "Intelligent Color Palette Generator with Tone Analysis",
-    description: "Generates professional color palettes with dark/light/medium tone analysis and usage suggestions",
+    name: "Color Palette Generator",
+    description: "Generates color palettes from uploaded images",
     endpoint: "POST /api/design/color-palette",
     parameters: {
       file: "Image file (multipart/form-data, JPG/PNG/WebP, max 20MB)",
       colorCount: "Number of colors to extract (3-12, optional, default: 6)"
     },
-    returns: "JPG image with color palette, tone analysis, and usage suggestions",
+    returns: "JPG image with color palette",
     features: [
       "Dominant color extraction using median cut quantization",
-      "Image tone analysis (dark/medium/light)",
-      "Color categorization by brightness",
-      "Usage suggestions for each tone category",
-      "Vibrant accent color identification"
+      "Simple visual palette output",
+      "HEX codes displayed on color blocks"
     ]
   });
 }
