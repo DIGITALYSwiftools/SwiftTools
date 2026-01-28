@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
+import toast, { Toaster } from "react-hot-toast";
 
 // UUID generators
 const generateUUIDv4 = () =>
@@ -48,7 +49,7 @@ export default function UUIDGenerator() {
     if (!ids.length) return;
     try {
       await navigator.clipboard.writeText(ids.join("\n"));
-      alert("IDs copied!");
+     toast.success("Copied to clipboard ✅");
     } catch (err) {
       console.error("Copy failed", err);
     }
@@ -57,6 +58,7 @@ export default function UUIDGenerator() {
   return (
     <div className="text-black bg-linear-to-r from-[#f8f7ff] via-[#faf5f5] to-[#fffdf5] min-h-screen">
       <div className="mx-auto max-w-md px-3 py-4">
+        <Toaster position="top-center"/> 
         <Navbar />
 
         {/* Header */}
