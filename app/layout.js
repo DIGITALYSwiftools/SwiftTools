@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { SessionProvider } from "next-auth/react";
 import "./globals.css";
 import { Roboto } from 'next/font/google';
-
+import { Toaster } from "react-hot-toast";
 const roboto = Roboto({
   weight: ['100','400','700','900'], // pick the weights you need
   style: ['normal', 'italic'],       // optional
@@ -22,6 +22,7 @@ export default function RootLayout({ children }) {
       <body
        className={roboto.className}
       >
+          <Toaster />
           <SessionProvider>  {children} </SessionProvider>
       
       </body>

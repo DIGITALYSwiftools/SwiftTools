@@ -131,3 +131,76 @@ export async function convertFileImage(
   if (!blob || blob.size === 0) throw new Error("Image conversion failed: empty response");
   return blob; // <-- safe to return now
 }
+
+// app/lib/api/designApi.js
+
+export async function runDesignTool({
+  slug,
+  file = null,
+}) {
+  const formData = new FormData();
+
+  // attach file if exists
+  if (file) {
+    formData.append("file", file);
+  }
+
+  
+
+  // tool identifier
+  formData.append("toolType", slug);
+
+  // ===== Endpoint Routing =====
+  let endpoint;
+
+  if (slug === "color-palette-generator") {
+    endpoint = "/api/design/color-palette";
+    
+  } 
+  else if (slug === "gradient-generator") {
+    endpoint = "/api/design/gradient";
+  } 
+  else if (slug === "mockup-generator") {
+    endpoint = "/api/design/mockup";
+    // file + params
+  } 
+  else if (slug === "social-media-templates") {
+    endpoint = "/api/design/social-template";
+    // params only
+  } 
+  else if (slug === "font-pairing-tool") {
+    endpoint = "/api/design/font-pairing";
+    // params only
+  } 
+  else {
+    throw new Error("Invalid design tool type");
+  }
+
+  const res = await fetch(endpoint, {
+    method: "POST",
+    body: formData,
+  });
+
+  // ===== Response Handling =====
+  if (!res.ok) {
+    let msg = "Design tool processing failed";
+    try {
+      const err = await res.json();
+      msg = err?.message || msg;
+    } catch {}
+    throw new Error(msg);
+  }
+
+  // JSON response for most tools
+  const contentType = res.headers.get("content-type");
+
+  if (contentType?.includes("application/json")) {
+    return await res.json();
+  }
+
+  // Blob response fallback (mockups, templates, exports, etc.)
+  const blob = await res.blob();
+  if (!blob || blob.size === 0) throw new Error("Empty response from server");
+  return blob;
+}
+   

@@ -41,8 +41,6 @@ yarn-error.log*
 next-env.d.ts
 
 
-# Ignore all files in app/pdf and subfolders
-app/pdf/*
 
 # Ignore all files in app/api/pdf and subfolders
 app/api/pdf/*
