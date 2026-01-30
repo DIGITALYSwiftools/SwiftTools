@@ -199,7 +199,7 @@ export default function DocumentationPage() {
 
             {/* Key Features */}
             {activeTool.features?.length > 0 && (
-              <div className="p-6 my-2 rounded-xl bg-white backdrop-blur-sm">
+              <div className="p-6 mt-1 mb-3 rounded-xl bg-white backdrop-blur-sm">
                 <h3 className="text-sm font-semibold mb-2 text-black">Key Features</h3>
                 <ul className="space-y-0">
                   {activeTool.features.map((feature, idx) => (

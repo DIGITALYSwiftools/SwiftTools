@@ -35,7 +35,8 @@ export default function GradientGenerator() {
         </div>
 
         {/* Card */}
-        <div className="bg-white w-md rounded-xl p-3 sm:p-5 shadow-lg space-y-4">
+        <div className="bg-white  max-w-[320px] sm:max-w-95 md:max-w-105 mx-auto rounded-xl p-3 sm:p-4 shadow-lg space-y-4">
+
 
           {/* Live Preview */}
           <div className="rounded-xl overflow-hidden border">
