@@ -106,7 +106,7 @@ export default function DocumentationPage() {
           {/* Section Header */}
           {sidebarOpen && (
             <div className="py-4 px-5 border-b border-gray-200">
-              <h2 className=" mt-16  pl-11 w-auto text-lg font-semibold text-black uppercase tracking-wide">
+              <h2 className=" mt-16 w-auto text-lg font-semibold text-black uppercase tracking-wide">
                 Introduction
               </h2>
             </div>
@@ -124,8 +124,8 @@ export default function DocumentationPage() {
                     sidebarOpen ? "px-3 py-2" : "px-2 py-2 justify-center"
                   } rounded-xl font-medium transition-all duration-200 cursor-pointer ${
                     activeCategory === cat.id
-                      ? "bg-indigo-50 shadow-inner"
-                      : "text-black hover:bg-indigo-50"
+                      ? "bg-gray-100 shadow-inner"
+                      : "text-black hover:bg-gray-100 "
                   }`}
                   aria-expanded={activeCategory === cat.id}
                 >
@@ -153,8 +153,8 @@ export default function DocumentationPage() {
                           }}
                           className={`flex items-center gap-2 px-2 text-xs py-2 rounded-lg transition-all duration-150 cursor-pointer ${
                             selectedTool === tool.id
-                              ? "bg-indigo-100 text-black font-medium"
-                              : " hover:bg-indigo-50 text-black"
+                              ? "bg-gray-100  text-black font-medium"
+                              : " hover:bg-gray-100  text-black"
                           }`}
                         >
                           <span className="text-transparent">---</span>
@@ -199,7 +199,7 @@ export default function DocumentationPage() {
 
             {/* Key Features */}
             {activeTool.features?.length > 0 && (
-              <div className="p-6 rounded-xl bg-gray-50/50 backdrop-blur-sm">
+              <div className="p-6 my-1 rounded-xl bg-white backdrop-blur-sm">
                 <h3 className="text-sm font-semibold mb-2 text-black">Key Features</h3>
                 <ul className="space-y-0">
                   {activeTool.features.map((feature, idx) => (
@@ -218,7 +218,7 @@ export default function DocumentationPage() {
             {/* API Endpoint */}
             {activeTool.apiEndpoint && (
               <div className="max-w-2xl">
-                <h3 className="text-sm font-semibold text-gray-500 uppercase mb-1">
+                <h3 className="text-sm font-semibold text-gray-900 uppercase mb-1">
                   API Endpoint
                 </h3>
                 <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-2 shadow-sm">
@@ -239,9 +239,9 @@ export default function DocumentationPage() {
 
             {/* Request Format */}
             {activeTool.requestFormat && (
-              <div className="p-6 rounded-xl bg-gray-50/50 backdrop-blur-sm">
+              <div className=" rounded-xl bg-gray-50/50 backdrop-blur-sm">
                 <h3 className="text-lg font-semibold mb-3 text-black">Request Format</h3>
-                <p className="text-sm text-gray-600 mb-3">
+                <p className="text-sm text-gray-600 mb-1">
                  <span className="font-bold"> Type:</span> <span className="text-sm ">{activeTool.requestFormat.type}</span>
                 </p>
                 <ul className="space-y-1">
