@@ -9,7 +9,7 @@ import Footer from "../components/Footer";
 import Link from "next/link";
 import Image from "next/image";
 import Loader from "../components/Loader";
-import { Cardsections } from "../lib/tools";
+
 
 export default function Dashboard() {
   const { data: session, status } = useSession();
