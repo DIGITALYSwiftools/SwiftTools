@@ -89,7 +89,7 @@ export default function DocumentationPage() {
       {/* Sidebar - Fixed for mobile, relative for desktop */}
       <aside
         className={`
-          bg-linear-to-r from-[#f8f7ff] via-[#fff7f7] to-[#fffdf5]  backdrop-blur-md flex flex-col min-h-screen border-r
+          bg-linear-to-r from-[#f8f7ff] via-[#fff7f7] to-[#fffdf5]  backdrop-blur-md flex flex-col min-h-screen 
           transition-all duration-300 ease-in-out
           ${sidebarOpen ? "w-64" : "w-0 md:w-16"}
           ${isMobile 
@@ -285,7 +285,7 @@ export default function DocumentationPage() {
             )}
           </div>
         ) : (
-          <section className={`${ sidebarOpen && !isMobile ? "mt-24" :""} flex min-h-screen flex-col items-start px-4 text-left max-w-6xl mx-auto `}>
+          <section className={`${ sidebarOpen && !isMobile ? "mt-11" :""} flex min-h-screen flex-col items-start px-4 text-left max-w-6xl mx-auto `}>
             {/* Badge */}
             <div className="mb-4">
               <span className="text-black rounded-full bg-white/80 backdrop-blur px-5 py-1.5 text-sm font-medium shadow-md border border-gray-200">
@@ -321,7 +321,7 @@ export default function DocumentationPage() {
 
             {/* Base URL Card */}
             <div className="mt-10 w-full max-w-2xl">
-              <h3 className="text-xl  font-semibold text-black uppercase tracking-wide mb-3">
+              <h3 className="text-xl  font-semibold text-gray-800 uppercase tracking-wide mb-3">
                 Base URL
               </h3>
               <div className="relative group">
@@ -354,7 +354,7 @@ export default function DocumentationPage() {
             </div>
 
             {/* Quick Tools */}
-            <h3 className="text-xl text-center sm:text-left font-semibold text-gray-900 mt-8 mb-4">
+            <h3 className="text-xl text-center sm:text-left font-semibold text-gray-800 mt-8 mb-4">
               Quick Tools
             </h3>
            <div className=" mx-auto grid place-items-center grid-cols-1  sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
