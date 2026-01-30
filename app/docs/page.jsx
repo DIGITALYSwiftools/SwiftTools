@@ -180,7 +180,7 @@ export default function DocumentationPage() {
         {isMobile && (
           <button
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="relative mt-20  w-10 h-10 bg-white border border-gray-300 rounded-full flex items-center justify-center z-30 shadow-lg"
+            className="relative mt-20  w-10 h-10 text-black mb-1 bg-white border border-gray-300 rounded-full flex items-center justify-center z-30 shadow-lg"
             aria-label={sidebarOpen ? "Close sidebar" : "Open sidebar"}
           >
             {sidebarOpen ? <ChevronLeft size={20} /> : <ChevronRight size={20} />}
@@ -293,14 +293,14 @@ export default function DocumentationPage() {
         ) : (
           <section className={`${ sidebarOpen && !isMobile ? "mt-24" :""} flex min-h-screen flex-col items-start px-4 text-left max-w-6xl mx-auto `}>
             {/* Badge */}
-            <div className="mb-6">
-              <span className="rounded-full bg-white/80 backdrop-blur px-5 py-1.5 text-sm font-medium shadow-md border border-gray-200">
+            <div className="mb-4">
+              <span className="text-black rounded-full bg-white/80 backdrop-blur px-5 py-1.5 text-sm font-medium shadow-md border border-gray-200">
                 ✨ Introducing SwiftTools 1.0
               </span>
             </div>
 
             {/* Main Heading */}
-            <h1 className="max-w-4xl text-3xl font-semibold leading-tight text-gray-600 md:text-5xl">
+            <h1 className="max-w-4xl text-3xl font-semibold leading-tight text-black md:text-5xl">
               Welcome to the Developer Portal
             </h1>
 
@@ -311,7 +311,7 @@ export default function DocumentationPage() {
             </p>
 
             {/* Divider */}
-            <div className="mt-10 h-2 w-24 bg-gray-400 rounded-full" />
+            <div className="mt-1" />
 
             {/* Introduction */}
             <div className="mt-12 max-w-3xl space-y-6 text-left">
@@ -327,7 +327,7 @@ export default function DocumentationPage() {
 
             {/* Base URL Card */}
             <div className="mt-10 w-full max-w-2xl">
-              <h3 className="text-sm font-semibold text-gray-500 uppercase tracking-wide mb-3">
+              <h3 className="text-xl  font-semibold text-black uppercase tracking-wide mb-3">
                 Base URL
               </h3>
               <div className="relative group">
@@ -363,7 +363,7 @@ export default function DocumentationPage() {
             <h3 className="text-xl text-center sm:text-left font-semibold text-gray-900 mt-8 mb-4">
               Quick Tools
             </h3>
-           <div className="ml-0 sm:ml-0 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
+           <div className=" mx-auto grid place-items-center grid-cols-1  sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-8">
   {quickTools.map((tool) => (
     <Link
       key={tool.slug}
