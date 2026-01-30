@@ -93,7 +93,7 @@ export default function DocumentationPage() {
           transition-all duration-300 ease-in-out
           ${sidebarOpen ? "w-64" : "w-0 md:w-16"}
           ${isMobile 
-            ? "fixed top-0 left-0 z-30 h-full" 
+            ? "fixed top-0 left-0 z-50 h-full" 
             : "relative"
           }
           ${sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"}
@@ -120,7 +120,7 @@ export default function DocumentationPage() {
                   onClick={() =>
                     setActiveCategory(activeCategory === cat.id ? null : cat.id)
                   }
-                  className={`flex items-center justify-between w-full ${
+                  className={`flex items-center text-black justify-between w-full ${
                     sidebarOpen ? "px-3 py-2" : "px-2 py-2 justify-center"
                   } rounded-xl font-medium transition-all duration-200 cursor-pointer ${
                     activeCategory === cat.id
@@ -136,7 +136,7 @@ export default function DocumentationPage() {
                     )}
                   </div>
                   {sidebarOpen && (
-                    <span className="text-xs text-gray-400">{cat.count}</span>
+                    <span className="text-xs text-black">{cat.count}</span>
                   )}
                 </button>
 
@@ -153,11 +153,11 @@ export default function DocumentationPage() {
                           }}
                           className={`flex items-center gap-2 px-2 text-xs py-2 rounded-lg transition-all duration-150 cursor-pointer ${
                             selectedTool === tool.id
-                              ? "bg-indigo-100 text-indigo-900 font-medium"
-                              : "text-gray-500 hover:bg-indigo-50 hover:text-indigo-700"
+                              ? "bg-indigo-100 text-black font-medium"
+                              : " hover:bg-indigo-50 text-black"
                           }`}
                         >
-                          <span className="text-white">---</span>
+                          <span className="text-transparent">---</span>
                           {tool.icon}
                           <span>{tool.name}</span>
                         </button>
@@ -200,12 +200,12 @@ export default function DocumentationPage() {
             {/* Key Features */}
             {activeTool.features?.length > 0 && (
               <div className="p-6 rounded-xl bg-gray-50/50 backdrop-blur-sm">
-                <h3 className="text-xl font-semibold mb-2 text-black">Key Features</h3>
-                <ul className="space-y-0.5">
+                <h3 className="text-sm font-semibold mb-2 text-black">Key Features</h3>
+                <ul className="space-y-0">
                   {activeTool.features.map((feature, idx) => (
                     <li
                       key={idx}
-                      className="flex items-start gap-1 p-3 rounded-lg hover:bg-gray-100/50"
+                      className="flex items-start gap-0.5  rounded-lg hover:bg-gray-100/50"
                     >
                       <span className="font-bold text-gray-700">*</span>
                       <span className="text-gray-700 text-sm">{feature}</span>
@@ -221,7 +221,7 @@ export default function DocumentationPage() {
                 <h3 className="text-sm font-semibold text-gray-500 uppercase mb-1">
                   API Endpoint
                 </h3>
-                <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
+                <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-2 shadow-sm">
                   <p className="font-mono text-sm text-gray-800 truncate flex-1">
                     {activeTool.apiEndpoint}
                   </p>
@@ -257,13 +257,7 @@ export default function DocumentationPage() {
               </div>
             )}
 
-            {/* Free Limits */}
-            {activeTool.freeLimits && (
-              <div className="p-6 rounded-xl bg-gray-50/50 backdrop-blur-sm">
-                <h3 className="text-lg font-semibold mb-1 text-gray-800">Free Usage</h3>
-                <p className="text-gray-700">{activeTool.freeLimits}</p>
-              </div>
-            )}
+      
 
             {/* Premium Benefits */}
             {activeTool.premiumBenefits?.length > 0 && (
