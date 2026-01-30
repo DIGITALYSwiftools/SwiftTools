@@ -89,7 +89,7 @@ export default function DocumentationPage() {
       {/* Sidebar - Fixed for mobile, relative for desktop */}
       <aside
         className={`
-          bg-white/80 backdrop-blur-md flex flex-col h-screen border-r border-gray-200
+          bg-white/80  backdrop-blur-md flex flex-col min-h-screen border-r border-gray-200
           transition-all duration-300 ease-in-out
           ${sidebarOpen ? "w-64" : "w-0 md:w-16"}
           ${isMobile 
@@ -188,7 +188,7 @@ export default function DocumentationPage() {
         )}
 
         {selectedTool ? (
-          <div className="rounded-2xl px-6 mt-2 sm:mt-24 space-y-12">
+          <div className="rounded-2xl px-6 mt-2  space-y-12">
             {/* Header */}
             <div className="space-y-3">
               <h2 className="text-3xl sm:text-xl font-bold text-gray-800">{activeTool.name}</h2>

@@ -687,7 +687,7 @@ import {
     },
     {
       id: "images-to-pdf",
-      name: "Images to PDF Converter",
+      name: "Images to PDF",
       category: "pdf",
       icon: <Images className="w-6 h-6" />,
       tagline: "Convert multiple images into a single PDF with A4 pages",
@@ -796,7 +796,7 @@ import {
     },
     {
       id: "pdf-metadata-remover",
-      name: "PDF Metadata Remover",
+      name: "Metadata Remover",
       category: "pdf",
       icon: <ShieldOff className="w-6 h-6" />,
       tagline: "Remove sensitive metadata from your PDF files",
