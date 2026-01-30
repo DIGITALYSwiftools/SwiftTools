@@ -89,7 +89,7 @@ export default function DocumentationPage() {
       {/* Sidebar - Fixed for mobile, relative for desktop */}
       <aside
         className={`
-          bg-white/80  backdrop-blur-md flex flex-col min-h-screen border-r border-gray-200
+          bg-linear-to-r from-[#f8f7ff] via-[#fff7f7] to-[#fffdf5]  backdrop-blur-md flex flex-col min-h-screen border-r
           transition-all duration-300 ease-in-out
           ${sidebarOpen ? "w-64" : "w-0 md:w-16"}
           ${isMobile 
@@ -124,8 +124,8 @@ export default function DocumentationPage() {
                     sidebarOpen ? "px-3 py-2" : "px-2 py-2 justify-center"
                   } rounded-xl font-medium transition-all duration-200 cursor-pointer ${
                     activeCategory === cat.id
-                      ? "bg-indigo-50 text-indigo-700 shadow-inner"
-                      : "text-gray-700 hover:bg-indigo-50 hover:text-indigo-600"
+                      ? "bg-indigo-50 shadow-inner"
+                      : "text-black hover:bg-indigo-50"
                   }`}
                   aria-expanded={activeCategory === cat.id}
                 >
@@ -200,8 +200,8 @@ export default function DocumentationPage() {
             {/* Key Features */}
             {activeTool.features?.length > 0 && (
               <div className="p-6 rounded-xl bg-gray-50/50 backdrop-blur-sm">
-                <h3 className="text-xl font-semibold mb-4 text-black">Key Features</h3>
-                <ul className="space-y-2">
+                <h3 className="text-xl font-semibold mb-2 text-black">Key Features</h3>
+                <ul className="space-y-0.5">
                   {activeTool.features.map((feature, idx) => (
                     <li
                       key={idx}
@@ -218,7 +218,7 @@ export default function DocumentationPage() {
             {/* API Endpoint */}
             {activeTool.apiEndpoint && (
               <div className="max-w-2xl">
-                <h3 className="text-sm font-semibold text-gray-500 uppercase mb-3">
+                <h3 className="text-sm font-semibold text-gray-500 uppercase mb-1">
                   API Endpoint
                 </h3>
                 <div className="flex items-center gap-3 rounded-lg border border-gray-200 bg-white p-4 shadow-sm">
@@ -244,7 +244,7 @@ export default function DocumentationPage() {
                 <p className="text-sm text-gray-600 mb-3">
                  <span className="font-bold"> Type:</span> <span className="text-sm ">{activeTool.requestFormat.type}</span>
                 </p>
-                <ul className="space-y-2">
+                <ul className="space-y-1">
                   {Object.entries(activeTool.requestFormat.fields).map(
                     ([key, value]) => (
                       <li key={key} className="text-sm">
@@ -269,7 +269,7 @@ export default function DocumentationPage() {
             {activeTool.premiumBenefits?.length > 0 && (
               <div className="p-6 rounded-xl bg-gray-50/50 backdrop-blur-sm">
                 <h3 className="text-lg font-semibold mb-2 text-gray-800">Premium Benefits</h3>
-                <ul className="space-y-2">
+                <ul className="space-y-1">
                   {activeTool.premiumBenefits.map((item, idx) => (
                     <li key={idx} className="flex gap-2 text-gray-700">
                       <span className="text-gray-800 font-bold">★</span>
@@ -282,9 +282,9 @@ export default function DocumentationPage() {
 
             {/* Detailed Guide */}
             {activeTool.detailedGuide && (
-              <div className="p-6 mb-3 rounded-xl bg-gray-100/25 backdrop-blur-md shadow-lg shadow-gray-500/5">
-                <h3 className="text-lg font-semibold mb-3 text-gray-800">How It Works</h3>
-                <div className="text-gray-600 text-xs max-w-none">
+              <div className="p-6 mb-3 rounded-xl bg-gray-200/25 backdrop-blur-md shadow-lg shadow-gray-500/5">
+                <h3 className="text-lg font-semibold mb-2 text-gray-800">How It Works</h3>
+                <div className="text-gray-600 text-xs max-w-none ">
                   <ReactMarkdown>{activeTool.detailedGuide}</ReactMarkdown>
                 </div>
               </div>
