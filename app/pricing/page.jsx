@@ -21,7 +21,7 @@ export default function PricingPage() {
       </div>
 
       {/* Pricing Cards */}
-      <div className="grid grid-cols-1 md:grid-cols-2 mx-auto gap-4 w-10/12">
+      <div className="grid grid-cols-1 md:grid-cols-2 mx-auto gap-4 w-2/3">
 
         {/* Free Card */}
         <div className="bg-white  rounded-xl border border-gray-200 p-6 flex flex-col shadow-sm h-full">
