@@ -118,7 +118,7 @@ export default function AccountPage() {
           </Link>
 
           <a
-            href="/api"
+            href="/docs"
             className="cursor-pointer flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100"
           >
             <Pen className="w-5 h-5" />

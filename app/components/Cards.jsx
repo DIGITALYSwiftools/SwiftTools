@@ -33,6 +33,8 @@ export default function CardsPage({ mtop }) {
               {section.tools.map((tool) => (
                 <Link
                   key={tool.slug}
+                  id={tool.slug} 
+                  data-tool-name={tool.name} 
                   href={`/${section.basePath}/${tool.slug}`}
                   className="group rounded-lg border border-gray-200 bg-white p-3 sm:p-3 md:p-4 transition-all hover:-translate-y-1 hover:shadow-lg hover:border-gray-300"
                 >

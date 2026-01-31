@@ -83,7 +83,7 @@ export default function Dashboard() {
     </Link>
 
     <a
-      href="/api"
+      href="/docs"
       className="cursor-pointer flex items-center gap-2 px-2 py-1.5 rounded-md hover:bg-gray-100 text-sm"
     >
       <Pen className="w-4 h-4" />

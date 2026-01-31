@@ -89,7 +89,7 @@ export default function DocumentationPage() {
       {/* Sidebar - Fixed for mobile, relative for desktop */}
       <aside
         className={`
-          bg-linear-to-r from-[#f8f7ff] via-[#fff7f7] to-[#fffdf5]  backdrop-blur-md flex flex-col min-h-screen 
+         bg-white  backdrop-blur-md flex flex-col min-h-screen 
           transition-all duration-300 ease-in-out
           ${sidebarOpen ? "w-64" : "w-0 md:w-16"}
           ${isMobile 
@@ -124,15 +124,15 @@ export default function DocumentationPage() {
                     sidebarOpen ? "px-3 py-2" : "px-2 py-2 justify-center"
                   } rounded-xl font-medium transition-all duration-200 cursor-pointer ${
                     activeCategory === cat.id
-                      ? "bg-gray-100 shadow-inner"
-                      : "text-black hover:bg-gray-100 "
+                      ? "bg-gray-50 shadow-inner"
+                      : "text-black "
                   }`}
                   aria-expanded={activeCategory === cat.id}
                 >
                   <div className="flex items-center gap-2">
                     {cat.icon}
                     {sidebarOpen && (
-                      <span className="text-base font-semibold">{cat.name}</span>
+                      <span className="text-base font-medium">{cat.name}</span>
                     )}
                   </div>
                   {sidebarOpen && (
@@ -153,8 +153,8 @@ export default function DocumentationPage() {
                           }}
                           className={`flex items-center gap-2 px-2 text-xs py-2 rounded-lg transition-all duration-150 cursor-pointer ${
                             selectedTool === tool.id
-                              ? "bg-gray-100  text-black font-medium"
-                              : " hover:bg-gray-100  text-black"
+                              ? " bg-gray-50  text-black font-medium"
+                              : "   text-black"
                           }`}
                         >
                           <span className="text-transparent">---</span>
