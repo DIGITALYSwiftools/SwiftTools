@@ -3,7 +3,7 @@
 import { useState, use } from "react";
 import Navbar from "../../components/Navbar";
 import Footer from "../../components/Footer";
-import { X, Lock, RotateCw } from "lucide-react";
+import {  Lock, RotateCw } from "lucide-react";
 import { pdfTool } from "../../lib/tools";
 import { convertFilePdf } from "../../lib/api";
 
@@ -263,9 +263,9 @@ export default function PDFToolPage({ params }) {
                   <span className="truncate">{file.name}</span>
                   <button
                     onClick={() => removeFile(i)}
-                    className="text-red-500 hover:text-red-700"
+                    className="text-gray-500"
                   >
-                    <X className="h-3 w-3" />
+                    Remove
                   </button>
                 </div>
               ))}

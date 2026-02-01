@@ -2,15 +2,19 @@
 
 import Link from "next/link";
 import { Check, Star, Zap } from "lucide-react";
+import Footer from "../components/Footer";
+import CustomFooter from "../components/CustomFooter";
+import Navbar from "../components/Navbar";
 
 export default function PricingPage() {
   const freeFeatures = ["Limited documents", "Basic PDF tools", "Web access"];
   const premiumFeatures = ["Unlimited documents", "All Swift tools", "Web + Mobile + Desktop"];
+  const proFeatures = ["All Premium features", "Priority support", "Team collaboration"];
 
   function PricingCard({ type, price, features, popular, current }) {
     return (
       <div
-        className={`flex flex-col rounded-xl border p-6 md:p-8 shadow-sm h-full
+        className={`flex flex-col rounded-xl border p-4 md:p-6 shadow-sm min-h-[250px]
           ${type === "premium" ? "bg-gray-50 border-gray-900 shadow-md" : "bg-white border-gray-200"}`}
       >
         {popular && (
@@ -38,7 +42,7 @@ export default function PricingPage() {
           <span className="text-[10px] md:text-[11px] text-gray-500"> /month</span>
         </div>
 
-        <ul className="space-y-1 md:space-y-2 text-[11px] md:text-[12px] mb-2">
+        <ul className="space-y-1 md:space-y-2 text-[11px] md:text-[12px] mb-2 flex-1">
           {features.map((f, i) => (
             <li key={i} className="flex items-center gap-2 text-gray-700">
               <Check className="w-3.5 h-3.5 md:w-4 md:h-4 text-green-500" />
@@ -60,7 +64,7 @@ export default function PricingPage() {
             className="mt-2 md:mt-3 w-full py-2 md:py-3 rounded-lg text-[11px] md:text-[12px] bg-black text-white flex items-center justify-center gap-2 hover:bg-gray-900 transition font-medium"
           >
             <Zap className="w-4 h-4 md:w-5 md:h-5" />
-            Upgrade to Premium
+            Upgrade to {type.charAt(0).toUpperCase() + type.slice(1)}
           </Link>
         )}
 
@@ -72,26 +76,24 @@ export default function PricingPage() {
   }
 
   return (
-    <div className="min-h-screen grid grid-cols-1 md:grid-cols-2">
+    <div className="min-h-screen flex">
+      <Navbar/>
 
-      {/* LEFT PANEL DESKTOP ONLY */}
-      <div className="hidden md:flex flex-col justify-end p-10 bg-linear-to-br from-sky-200 via-purple-200 to-pink-200">
+      {/* LEFT PANEL 30% */}
+      <div className="hidden md:flex flex-col justify-center w-[30%] p-8 bg-linear-to-br from-sky-200 via-purple-200 to-pink-200">
         <h2 className="text-2xl font-semibold text-gray-900">
           Welcome to SwiftTools <span className="font-normal">1.0</span>
         </h2>
-        <p className="mt-2 max-w-sm text-sm text-gray-700">
+        <p className="mt-2 text-sm text-gray-700">
           The all-in-one toolbox that fits your daily workflow.
         </p>
       </div>
 
-      {/* MAIN PRICING SECTION */}
-      <main className="min-h-screen w-full bg-linear-to-r from-[#f8f7ff] via-[#fffbfb] to-[#fffdf5] px-4 py-6 flex flex-col items-center">
+      {/* MAIN PRICING SECTION 70% */}
+      <main className="flex-1 w-[70%] bg-linear-to-r from-[#f8f7ff] via-[#fffbfb] to-[#fffdf5] px-4 py-6 flex flex-col items-center">
 
         {/* Header */}
-        <div className="text-center mb-6 max-w-4xl">
-          <Link href="/">
-            <img src="/logo.png" className="w-40 md:w-44 mx-auto mt-2" />
-          </Link>
+        <div className="text-center mb-6 max-w-4xl mt-16">
           <h1 className="text-2xl md:text-3xl font-bold text-gray-900 mt-2">
             Pricing
           </h1>
@@ -101,16 +103,20 @@ export default function PricingPage() {
         </div>
 
         {/* Pricing Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-5xl w-full">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:max-w-5xl   w-[280px] lg:w-full">
           <PricingCard type="free" price="0" features={freeFeatures} current />
           <PricingCard type="premium" price="5" features={premiumFeatures} popular />
+          <PricingCard type="pro" price="15" features={proFeatures} />
         </div>
 
         {/* Footer */}
         <p className="text-[10px] md:text-[11px] text-gray-400 text-center mt-6 max-w-md">
           Get more done faster with Swift Tools
         </p>
+         <Footer/>
+      <CustomFooter/>
       </main>
+     
     </div>
   );
 }

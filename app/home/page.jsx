@@ -31,6 +31,7 @@ export default function Home() {
   }, [query]);
 
   const handleSearch = () => {
+    
     const search = query.trim().toLowerCase();
     if (!search) return;
 
@@ -77,32 +78,35 @@ export default function Home() {
           every digital task in seconds.
         </p>
 
-        {/* Search */}
-        <div className="mt-10 w-full max-w-md">
-          <div className="flex items-center gap-3 rounded-full bg-white px-5 py-3 shadow">
-            <svg
-              className="h-5 w-5 text-gray-800 cursor-pointer"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              viewBox="0 0 24 24"
-              onClick={handleSearch}
-            >
-              <circle cx="11" cy="11" r="8" />
-              <line x1="21" y1="21" x2="16.65" y2="16.65" />
-            </svg>
+       {/* Search */}
+<div className="mt-10 w-full max-w-md">
+  <div className="flex items-center gap-3 rounded-full bg-white px-5 py-3 shadow">
+    <svg
+      className="h-5 w-5 text-gray-800 cursor-pointer"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      onClick={handleSearch} // click triggers search
+    >
+      <circle cx="11" cy="11" r="8" />
+      <line x1="21" y1="21" x2="16.65" y2="16.65" />
+    </svg>
 
-            <input
-              key={placeholderIndex} // 🔥 forces smooth re-animation
-              type="text"
-              placeholder={`Search for ${placeholders[placeholderIndex]}`}
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              className="w-full bg-transparent text-sm outline-none text-black placeholder-gray-400 animate-[placeholderFade_0.4s_ease-out]"
-            />
+    <input
+  type="text"
+  placeholder={query ? query : `Search for ${placeholders[placeholderIndex]}`}
+  value={query}
+  onChange={(e) => setQuery(e.target.value)}
+  onKeyDown={(e) => {
+    if (e.key === "Enter") handleSearch();
+  }}
+  className="w-full bg-transparent text-sm outline-none text-black placeholder-gray-400"
+/>
 
-          </div>
-        </div>
+  </div>
+</div>
+
       </section>
       <CardsPage />
       <Faqs />

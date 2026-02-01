@@ -7,6 +7,7 @@ import { tools } from "../../lib/tools";
 import { convertFileImage } from "../../lib/api";
 import Cropper from "react-easy-crop";
 import getCroppedImg from "../../lib/cropImage";
+import CustomFooter from "../../components/CustomFooter";
 
 export default function ToolDetailPage({ params }) {
   const { slug } = use(params);
@@ -313,36 +314,46 @@ export default function ToolDetailPage({ params }) {
 )}
 
 
-            {/* Selected Files Info */}
-            {selectedFiles.length > 0 && (
-              <div className="mt-2 space-y-1 overflow-x-auto">
-                {selectedFiles.map((file, i) => (
-                  <div key={i} className="flex items-center gap-1 p-1 border border-gray-200 rounded bg-gray-50 text-[10px] sm:text-xs">
-                    <img src={previewUrls[i]} alt={file.name} className="w-8 h-8 sm:w-10 sm:h-10 object-cover rounded" />
-                    <div className="flex flex-col truncate">
-                      <span className="truncate">{file.name}</span>
-                      <span className="text-gray-500">{(file.size / 1024).toFixed(1)} KB</span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            )}
+    {/* Selected Files with Remove */}
+{selectedFiles.length > 0 && (
+  <div className="mt-2 space-y-1 overflow-x-auto">
+    {selectedFiles.map((file, i) => (
+      <div key={i} className="flex items-center gap-1 p-1 border border-gray-200 rounded bg-gray-50 text-[10px] sm:text-xs">
+        <img src={previewUrls[i]} alt={file.name} className="w-8 h-8 sm:w-10 sm:h-10 object-cover rounded" />
+        <div className="flex flex-col truncate">
+          <span className="truncate">{file.name}</span>
+          <span className="text-gray-500">{(file.size / 1024).toFixed(1)} KB</span>
+        </div>
+        {/* Remove Button */}
+        <button
+          onClick={() => {
+            setSelectedFiles((prev) => prev.filter((_, idx) => idx !== i));
+            setPreviewUrls((prev) => prev.filter((_, idx) => idx !== i));
+            setCropData((prev) => prev.filter((_, idx) => idx !== i));
+          }}
+          className="ml-auto text-gray-500 text-xs sm:text-sm font-semibold"
+        >
+          Remove
+        </button>
+      </div>
+    ))}
+  </div>
+)}
 
-            {/* Convert Button */}
-            {selectedFiles.length > 0 && (
-              <button
-                onClick={handleConvert}
-                disabled={loading}
-                className="mt-4 w-full rounded-lg bg-black text-white py-2.5 text-sm font-semibold disabled:opacity-50 transition-colors"
-              >
-                {loading ? "Processing..." : "Convert"}
-              </button>
-            )}
+{/* Convert Button Always Visible */}
+<button
+  onClick={handleConvert}
+  disabled={loading}
+  className="mt-4 w-full rounded-lg bg-black text-white py-2.5 text-sm font-semibold"
+>
+  {loading ? "Processing..." : "Convert"}
+</button>
+
 
           </div>
         </div>
-
         <Footer />
+        <CustomFooter/>
       </div>
     </>
   );
