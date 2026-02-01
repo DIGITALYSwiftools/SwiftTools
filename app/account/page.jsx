@@ -74,7 +74,7 @@ export default function AccountPage() {
   if (!session || !user) return null;
 
   return (
-    <main className="min-h-screen flex bg-linear-to-r from-[#fcfbff] via-[#fff9f9] to-[#fffdf5]">
+    <main className="min-h-screen flex bg-linear-to-r from-[#f8f7ff] via-[#fff7f7] to-[#fffdf5]">
       {/* Sidebar */}
       <aside
         className={`fixed top-0 left-0 h-full  backdrop-blur-md shadow-lg p-4 transition-all duration-300 z-30

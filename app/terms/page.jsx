@@ -6,7 +6,7 @@ import CustomFooter from "../components/CustomFooter";
 
 export default function TermsOfService() {
   return (
-    <div className="min-h-screen bg-linear-to-r from-[#f8f7ff] via-[#fffbfb] to-[#fffdf5] text-gray-900 flex flex-col">
+    <div className="min-h-screen bg-linear-to-r from-[#f8f7ff] via-[#fff7f7] to-[#fffdf5] text-gray-900 flex flex-col">
       <Navbar />
 
       <main className="flex-1 max-w-5xl mx-auto px-4 py-12 space-y-12 mt-16">

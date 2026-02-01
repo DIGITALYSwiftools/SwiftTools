@@ -78,8 +78,8 @@ export default function DocumentationPage() {
   const activeTool = selectedTool ? tools.find((t) => t.id === selectedTool) : null;
 
   return (
-    <div className="bg-linear-to-r from-[#f9f9fb] via-[#fff1f1] to-[#fffdf5]">
-    <div className="flex min-h-screen bg-linear-to-r from-[#f9f9fb] via-[#fff1f1] to-[#fffdf5]">
+    <div className="bg-linear-to-r from-[#f8f7ff] via-[#fff7f7] to-[#fffdf5]">
+    <div className="flex min-h-screen bg-linear-to-r from-[#f8f7ff] via-[#fff7f7] to-[#fffdf5]">
       {/* Mobile Overlay */}
       {isMobile && sidebarOpen && (
         <div
